@@ -22,5 +22,6 @@ public class Test {
                 trie.add(tuple);
             }
         }
+        trie.searchTuple('c', null, 2.678884224, "pet " + 3);
     }
 }

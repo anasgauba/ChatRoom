@@ -17,16 +17,16 @@ public class Node {
 
     public void addNode(Tuple tuple, int index) {
         if (index == tuple.getSize()) {
-            System.out.println("Tuple: " + tuple);
+//            System.out.println("Tuple: " + tuple);
             this.tuple = tuple;
         }
         else if (children.containsKey(tuple.get(index))) {
-            System.out.println(tuple.get(index));
+//            System.out.println(tuple.get(index));
             Node child = children.get(tuple.get(index));
             child.addNode(tuple, index + 1);
         }
         else {
-            System.out.println(tuple.get(index));
+//            System.out.println(tuple.get(index));
             Node newNode = new Node();
             children.put(tuple.get(index), newNode);
             newNode.addNode(tuple, index + 1);
@@ -35,18 +35,29 @@ public class Node {
 
     public Tuple lookup(int index, Object... pattern) {
         Tuple match = new Tuple(pattern);
+//        System.out.println(match);
+//        System.out.println("Hello" + index);
+//        System.out.println(children);
         if (index == match.getSize()) {
-            return match;
+            System.out.println("Lookup: " + match);
+            return this.tuple;
         }
         else if (children.containsKey(match.get(index))) {
             Node node = children.get(match.get(index));
-            node.lookup(index + 1, pattern);
+            System.out.println(match.get(index));
+            return node.lookup(index + 1, pattern);
         }
         return null;
     }
 
     public Tuple removeNode(int index, Object... pattern) {
         Tuple match = new Tuple(pattern);
+        if (index == match.getSize()) {
+
+        }
+        else if (children.containsKey(match.get(index))) {
+            
+        }
         return tuple;
     }
 
