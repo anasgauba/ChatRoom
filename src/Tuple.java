@@ -35,4 +35,13 @@ public class Tuple {
     public int getSize() {
         return object.length;
     }
+
+    public String toString() {
+        String str = "[ ";
+        for (int i = 0; i < object.length; i++) {
+            str += object[i] + " ";
+        }
+        str += "]";
+        return str;
+    }
 }

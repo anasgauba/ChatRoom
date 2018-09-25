@@ -32,10 +32,10 @@ public class Trie {
     }
 
     public Tuple searchTuple(Object ... pattern) {
-
+        return root.lookup(0, pattern);
     }
 
     public Tuple removeTuple(Object ... pattern) {
-
+        return root.removeNode(0, pattern);
     }
 }

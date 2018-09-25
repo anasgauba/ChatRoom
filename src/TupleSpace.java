@@ -16,14 +16,14 @@ public class TupleSpace {
 //        if (space.containsKey(tuple.getSize()) == false) {
 //            space.get(tuple.getSize()).get(tuple.get(0));
 //        }
-        this.trie.addNode(tuple);
+//        this.trie.addNode(tuple);
     }
 
-    public Tuple read(Object... pattern) {
-        return trie.searchTuple(pattern);
-    }
-
-    public Tuple remove(Object ... pattern) {
-        return trie.removeTuple(pattern);
-    }
+//    public Tuple read(Object... pattern) {
+//        return trie.searchTuple(pattern);
+//    }
+//
+//    public Tuple remove(Object ... pattern) {
+//        return trie.removeTuple(pattern);
+//    }
 }
