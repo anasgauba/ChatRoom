@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Stress testing class to test the tuple space.
  * @version date: 2018-09-20
@@ -5,6 +7,8 @@
  */
 public class Test {
     public static void main(String[] args) {
+        Object[] randomObject;
+        Random randomTuple = new Random();
         Trie trie = new Trie();
         Tuple tuple = null;
 
@@ -22,6 +26,7 @@ public class Test {
                 trie.add(tuple);
             }
         }
-        trie.searchTuple('c', null, 2.678884224, "pet " + 3);
+//        trie.searchTuple("anas " + 4, 2, 5);
+        trie.searchTuple('c', 2.54, 2.678884224, null);
     }
 }

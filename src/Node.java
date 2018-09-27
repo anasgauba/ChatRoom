@@ -1,4 +1,6 @@
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * @version date: 2018-09-20
@@ -18,6 +20,7 @@ public class Node {
     public void addNode(Tuple tuple, int index) {
         if (index == tuple.getSize()) {
 //            System.out.println("Tuple: " + tuple);
+            isPattern = true;
             this.tuple = tuple;
         }
         else if (children.containsKey(tuple.get(index))) {
@@ -35,12 +38,24 @@ public class Node {
 
     public Tuple lookup(int index, Object... pattern) {
         Tuple match = new Tuple(pattern);
-//        System.out.println(match);
-//        System.out.println("Hello" + index);
-//        System.out.println(children);
         if (index == match.getSize()) {
-            System.out.println("Lookup: " + match);
-            return this.tuple;
+            if (isPattern) {
+                System.out.println("Lookup: " + tuple);
+                return this.tuple;
+            }
+            else {
+                return null;
+            }
+        }
+        else if (match.get(index) == null) {
+            index++;
+            Collection<Node> list = children.values();
+            for (Node child : list) {
+                Tuple search = child.lookup(index, pattern);
+                if (search != null) {
+                    return search;
+                }
+            }
         }
         else if (children.containsKey(match.get(index))) {
             Node node = children.get(match.get(index));
@@ -53,20 +68,27 @@ public class Node {
     public Tuple removeNode(int index, Object... pattern) {
         Tuple match = new Tuple(pattern);
         if (index == match.getSize()) {
+            if (isPattern) {
 
+            }
+            return this.tuple;
+        }
+        else if (match.get(index) == null) {
+            index++;
+            Collection<Node> list = children.values();
+            for (Node child : list) {
+                Tuple search = child.lookup(index, pattern);
+                if (search != null) {
+                    return search;
+                }
+            }
         }
         else if (children.containsKey(match.get(index))) {
-            
+            Node node = children.get(match.get(index));
+            return node.lookup(index + 1, pattern);
+
         }
-        return tuple;
-    }
-
-    public Node getChildren(Object obj) {
-        return this.children.get(obj);
-    }
-
-    public Node setChildren(Object obj) {
-        return this.children.put(obj, new Node());
+        return null;
     }
 
     public boolean isPattern() {
