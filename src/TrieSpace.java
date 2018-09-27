@@ -2,12 +2,12 @@
  * @version date: 2018-09-20
  * @author Anas Farooq Gauba
  */
-public class Trie {
+public class TrieSpace {
 
     private Node root;
 
 
-    public Trie() {
+    public TrieSpace() {
         this.root = new Node();
     }
 
@@ -31,11 +31,11 @@ public class Trie {
 //        head.setPattern(true);
     }
 
-    public Tuple searchTuple(Object ... pattern) {
+    public Tuple search(Object ... pattern) {
         return root.lookup(0, pattern);
     }
 
-    public Tuple removeTuple(Object ... pattern) {
+    public Tuple remove(Object ... pattern) {
         return root.removeNode(0, pattern);
     }
 }

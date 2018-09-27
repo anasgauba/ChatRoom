@@ -9,7 +9,7 @@ public class Test {
     public static void main(String[] args) {
         Object[] randomObject;
         Random randomTuple = new Random();
-        Trie trie = new Trie();
+        TrieSpace trie = new TrieSpace();
         Tuple tuple = null;
 
         for (int i = 0; i < 100; i++) {
@@ -26,7 +26,7 @@ public class Test {
                 trie.add(tuple);
             }
         }
-//        trie.searchTuple("anas " + 4, 2, 5);
-        trie.searchTuple('c', 2.54, 2.678884224, null);
+//        trie.search("anas " + 4, 2, 5);
+        trie.search('c', 2.54, 2.678884224, null);
     }
 }
