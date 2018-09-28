@@ -13,9 +13,9 @@ public class TrieSpace implements TupleSpace{
         this.root = new Node();
     }
 
-//    public int getMapSize() {
-//        return root.getChildren();
-//    }
+    public int getMapSize() {
+        return root.getChildren();
+    }
     public void add(Tuple tuple) {
         root.addNode(tuple, 0);
 //        Node head = root;

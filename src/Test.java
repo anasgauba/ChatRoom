@@ -18,8 +18,8 @@ public class Test {
 //        calendar.setTimeInMillis(time);
 //        System.out.println(calendar.get(Calendar.HOUR_OF_DAY) + ":" +
 //                calendar.get(Calendar.MILLISECOND));
-        System.out.println(time);
-        for (int i = 0; i < 10000; i++) {
+//        System.out.println(time);
+        for (int i = 0; i < 100000; i++) {
             if (i % 2 == 0) {
 //                System.out.println("i mod 2 " + i);
                 tuple = new Tuple("anas " + i, 2);
@@ -65,7 +65,7 @@ public class Test {
 //        System.out.println(trie.getMapSize());
         System.out.println(time2 - time + " millis");
 
-//        trie.remove("anas " + 4, null);
+        trie.remove("anas " + 4, 2);
         trie.search("anas " + 4, 2);
 //        trie.search('c', 2.54, 2.678884224, null);
 //        trie.remove("anas " + 4, 2, 5);
