@@ -4,7 +4,7 @@ import java.util.HashMap;
  * @version date: 2018-09-20
  * @author Anas Farooq Gauba
  */
-public class TrieSpace {
+public class TrieSpace implements TupleSpace{
 
     private Node root;
 
