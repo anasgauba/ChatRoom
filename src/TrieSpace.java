@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * @version date: 2018-09-20
  * @author Anas Farooq Gauba
@@ -11,6 +13,9 @@ public class TrieSpace {
         this.root = new Node();
     }
 
+//    public int getMapSize() {
+//        return root.getChildren();
+//    }
     public void add(Tuple tuple) {
         root.addNode(tuple, 0);
 //        Node head = root;

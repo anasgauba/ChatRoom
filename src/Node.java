@@ -17,6 +17,10 @@ public class Node {
         this.children = new HashMap<>();
     }
 
+//    public int getChildren() {
+//        return children.size();
+//    }
+
     public void addNode(Tuple tuple, int index) {
         if (index == tuple.getSize()) {
 //            System.out.println("Tuple: " + tuple);
@@ -69,15 +73,18 @@ public class Node {
         Tuple match = new Tuple(pattern);
         if (index == match.getSize()) {
             if (isPattern) {
-
+                isPattern = false;
+                if (children.isEmpty()) {
+                    System.out.println(children);
+                    return this.tuple;
+                }
             }
-            return this.tuple;
         }
         else if (match.get(index) == null) {
             index++;
             Collection<Node> list = children.values();
             for (Node child : list) {
-                Tuple search = child.lookup(index, pattern);
+                Tuple search = child.removeNode(index, pattern);
                 if (search != null) {
                     return search;
                 }
@@ -85,7 +92,7 @@ public class Node {
         }
         else if (children.containsKey(match.get(index))) {
             Node node = children.get(match.get(index));
-            return node.lookup(index + 1, pattern);
+            return node.removeNode(index + 1, pattern);
 
         }
         return null;
