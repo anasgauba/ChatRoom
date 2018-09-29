@@ -2,21 +2,21 @@ ChatRoom Application:
  - TupleSpace:
    + There are two implementations of TupleSpace (interface). 
      1. Naive implementation using LinkedList data structure.
-        * I have named my linked list implementation as "LinkedSpace" so its 
+        - I have named my linked list implementation as "LinkedSpace" so its 
         easier to recognize which implementation of TupleSpace it is. 
-        * Everything is shoved into a linkedlist without taking care of the 
+        - Everything is shoved into a linkedlist without taking care of the 
         size of the each tuple. 
-        * Linear search is done to look the pattern match which slows down 
+        - Linear search is done to look the pattern match which slows down 
         the efficiency at runtime. 
-        * It doesn't add duplicates into the space (which is a requirement 
+        - It doesn't add duplicates into the space (which is a requirement 
         for Set).
-        * I have created a method isEqual() in Tuple.java specifically for 
+        - I have created a method isEqual() in Tuple.java specifically for 
         this space implementation, which checks for wildcards and pattern match.
            
      2. Elegant implementation using Trie of HashMap data structure.
-        * I have named my Trie implementation as "TrieSpace" so its easier to
+        - I have named my Trie implementation as "TrieSpace" so its easier to
          recognize which implementation of TupleSpace it is. 
-        * Using Trie data structure with HashMap.  
+        - Using Trie data structure with HashMap.  
          
    + Stress Testing:
      1. write here
