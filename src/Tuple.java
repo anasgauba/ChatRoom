@@ -17,6 +17,18 @@ public class Tuple {
     public Tuple(Object... objs) {
         this.pattern = objs;
     }
+
+    /**
+     * Compares the two tuples and checks for wildcards as
+     * well. This method is helper method for linked list tuple
+     * space implementation. It checks the two tuples for the
+     * same pattern and also checks if there are wildcards, if there
+     * are, then it ignores them and simply search the next pattern
+     * in the tuple and returns true if the pattern matches with the
+     * given tuple.
+     * @param t1 tuple to compare with.
+     * @return true/false based on the pattern match.
+     */
     public boolean isEqual(Tuple t1) {
         Object[] temp = t1.getPattern();
 
@@ -25,11 +37,10 @@ public class Tuple {
         }
         else {
             for (int i = 0; i < getSize(); i++) {
-                if (!pattern[i].equals(temp[i])&& temp[i] != "*") {
+                if (!pattern[i].equals(temp[i])&& temp[i] != null) {
                     return false;
                 }
             }
-
         }
         return true;
     }
@@ -43,6 +54,11 @@ public class Tuple {
     public Object get(int i) {
         return pattern[i];
     }
+
+    /**
+     * Gets the whole tuple pattern.
+     * @return all the patterns in the tuple.
+     */
     public Object[] getPattern() {
         return pattern;
     }
@@ -55,6 +71,10 @@ public class Tuple {
         return pattern.length;
     }
 
+    /**
+     *
+     * @return string representation of the tuple.
+     */
     public String toString() {
         String str = "[ ";
         for (int i = 0; i < pattern.length; i++) {

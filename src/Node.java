@@ -1,26 +1,43 @@
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
+ *
  * @version date: 2018-09-20
  * @author Anas Farooq Gauba
  */
 public class Node {
-//    Object myObj;
     private HashMap<Object, Node> children;
-    boolean isPattern;
-    Tuple tuple;
-//    LinkedList<Node> root;
+    private boolean isPattern;
+    private Tuple tuple;
 
+    /**
+     *
+     */
     public Node() {
         this.children = new HashMap<>();
     }
 
+    /**
+     *
+     * @return
+     */
     public int getChildren() {
         return children.size();
     }
 
+    /**
+     * Adds the tuple to trie of hashmaps. Recursively, Checks if a specific
+     * Object in tuple is already in the trie, if it is, then don't add it,
+     * simply get that object and store it in the node. If the Object at
+     * some index is not in the trie of hashmap, then put it in the
+     * trie and recursively look at the next pattern in the tuple.
+     * If we reach the end of the tuple (base case), then we have the
+     * pattern, so we set the isPattern to true and we have the tuple in
+     * the trie now.
+     * @param tuple to add in trie.
+     * @param index to traverse the tree.
+     */
     public void addNode(Tuple tuple, int index) {
         if (index == tuple.getSize()) {
 //            System.out.println("Tuple: " + tuple);
@@ -40,6 +57,12 @@ public class Node {
         }
     }
 
+    /**
+     * Searching for the pattern in the trie.
+     * @param index to traverse the trie.
+     * @param pattern we're looking at in the trie.
+     * @return the tuple matching the pattern we searched for.
+     */
     public Tuple lookup(int index, Object... pattern) {
         Tuple match = new Tuple(pattern);
         if (index == match.getSize()) {
@@ -69,6 +92,12 @@ public class Node {
         return null;
     }
 
+    /**
+     *
+     * @param index to traverse the trie.
+     * @param pattern we're looking at in the trie.
+     * @return the tuple we want to remove.
+     */
     public Tuple removeNode(int index, Object... pattern) {
         Tuple match = new Tuple(pattern);
         if (index == match.getSize()) {
@@ -81,23 +110,23 @@ public class Node {
         else if (match.get(index) == null) {
             Collection<Node> list = children.values();
             for (Node child : list) {
-                Tuple remove = child.removeNode(index +1, pattern);
-                if (remove != null) {
+                Tuple removePattern = child.removeNode(index + 1, pattern);
+                if (removePattern != null) {
                     if(child.children.isEmpty() && !isPattern) {
-                        children.remove(remove.get(index));
+                        children.remove(removePattern.get(index));
                     }
-                    return remove;
+                    return removePattern;
                 }
             }
         }
         else if (children.containsKey(match.get(index))) {
             Node node = children.get(match.get(index));
-            Tuple remove = node.removeNode(index + 1, pattern);
-            if (remove != null) {
+            Tuple removePattern = node.removeNode(index + 1, pattern);
+            if (removePattern != null) {
                 if (node.children.isEmpty() && !isPattern) {
-                    children.remove(remove.get(index));
+                    children.remove(removePattern.get(index));
                 }
-                return remove;
+                return removePattern;
             }
         }
         return null;
@@ -109,19 +138,6 @@ public class Node {
     public void setPattern(boolean pattern) {
         this.isPattern = pattern;
     }
-
-//    public void insert(Tuple tuple) {
-
-//        Node current = new Node();
-//        Class objType = object.getClass();
-//        if (children.containsKey(object)) {
-//            current = children.get(object);
-//        }
-//        else {
-//            current = new Node();
-//        }
-//        children.put(objType, current);
-//    }
 
     public static void main(String[] args) {
 //        Node node = new Node();
