@@ -77,11 +77,11 @@ public class Tuple {
      * @return string representation of the tuple.
      */
     public String toString() {
-        String str = "[ ";
+        String str = "";
         for (int i = 0; i < pattern.length; i++) {
             str += pattern[i] + " ";
         }
-        str += "]";
+        str += "";
         return str;
     }
 }
