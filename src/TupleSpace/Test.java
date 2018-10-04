@@ -1,3 +1,4 @@
+package TupleSpace;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -8,10 +9,8 @@ import java.util.Random;
  */
 public class Test {
     public static void main(String[] args) {
-        Object[] randomObject;
-        Random randomTuple = new Random();
         TrieSpace trie = new TrieSpace();
-        Tuple tuple = null;
+        Tuple tuple;
 
 //        Calendar calendar = Calendar.getInstance();
         long time = System.currentTimeMillis();
@@ -60,13 +59,30 @@ public class Test {
                 trie.add(tuple);
             }
         }
-        long time2 = System.currentTimeMillis();
 
 //        System.out.println(trie.getMapSize());
-        System.out.println(time2 - time + " millis");
 
-        trie.remove("anas " + 4, 2);
-        trie.search("anas " + 4, 2);
+
+        for (int i = 0; i < 60000; i++) {
+            if (i % 2 == 0) {
+                trie.search("anas " + i, 2);
+                trie.remove("anas " + 2*i, 2);
+            }
+            else if (i % 3 == 0) {
+                trie.search(2.54, 2.678884224, "pet " + i);
+            }
+            else if (i % 7 == 0) {
+                trie.search(false, 3.1458, 1.945343320, 'b', "dog " + i);
+            }
+            else {
+                trie.search("ana ", 'v', 22.00 + i, 2500 + "bob " + i,
+                        true, 2.777777444331111, 2*i, "bob the " + 4*i);
+            }
+        }
+        long time2 = System.currentTimeMillis();
+        System.out.println(time2 - time + " millis");
+//        trie.remove("anas " + 4, 2);
+//        trie.search(2.54, 2.678884224, null);
 //        trie.search('c', 2.54, 2.678884224, null);
 //        trie.remove("anas " + 4, 2, 5);
     }

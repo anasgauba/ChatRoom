@@ -1,3 +1,4 @@
+package TupleSpace;
 /**
  * A class for tuple of any pattern (String, char, etc).
  * Have methods to get size and get the specific pattern

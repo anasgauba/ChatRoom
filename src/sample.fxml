@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ScrollPane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: rgb(72, 103, 178);" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameCoordinator">
    <children>
       <VBox layoutX="27.0" layoutY="22.0" prefHeight="457.0" prefWidth="247.0">
@@ -32,11 +33,11 @@
                   <Insets />
                </VBox.margin>
             </ListView>
-            <ListView prefHeight="174.0" prefWidth="247.0">
+            <ScrollPane prefHeight="174.0" prefWidth="247.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
-            </ListView>
+            </ScrollPane>
             <HBox prefHeight="101.0" prefWidth="247.0">
                <children>
                   <TextField prefHeight="88.0" prefWidth="156.0">

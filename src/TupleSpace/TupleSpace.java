@@ -1,3 +1,4 @@
+package TupleSpace;
 /**
  * An interface for implementing two different
  * data structures for TupleSpace. One is naive (slow) implementation

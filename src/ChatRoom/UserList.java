@@ -1,3 +1,4 @@
+package ChatRoom;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -6,15 +7,31 @@ import java.util.LinkedList;
  * @author Anas Farooq Gauba
  */
 public class UserList {
-    ArrayList<User> users;
+    private ArrayList<User> users;
 
     public UserList() {
         users = new ArrayList<>();
     }
 
-    public User get(int index) {
-        return users.get(index);
+    public void addUser(User... user) {
+        for (int i = 0; i < user.length; i++) {
+            users.add(user[i]);
+        }
     }
+
+    public String getUserByName(String userName) {
+        String str = "";
+        for (int i = 0; i < users.size(); i++) {
+            if (users.equals(userName)) {
+                str += users.get(i).getName();
+            }
+        }
+        return str;
+    }
+
+//    public User get(int index) {
+//        return users.get(index);
+//    }
     public ArrayList<User> getAllUsers() {
         return users;
     }

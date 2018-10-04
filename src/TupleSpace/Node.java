@@ -1,3 +1,4 @@
+package TupleSpace;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -86,7 +87,7 @@ public class Node {
         }
         else if (children.containsKey(match.get(index))) {
             Node node = children.get(match.get(index));
-            System.out.println(match.get(index));
+//            System.out.println(match.get(index));
             return node.lookup(index + 1, pattern);
         }
         return null;
@@ -103,7 +104,7 @@ public class Node {
         if (index == match.getSize()) {
             if (isPattern) {
                 isPattern = false;
-                System.out.println(tuple);
+                System.out.println("Remove " + tuple);
                 return this.tuple;
             }
         }
