@@ -3,7 +3,10 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- *
+ * A Node/Trie class where the trie of hashmap data structure
+ * is used. It adds the tuple, search for the specific tuple
+ * and remove a specific tuple from the trie of hashmap. Have a boolean
+ * variable to set it true when I add the tuple to trie.
  * @version date: 2018-09-20
  * @author Anas Farooq Gauba
  */
@@ -19,13 +22,9 @@ public class Node {
         this.children = new HashMap<>();
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getChildren() {
-        return children.size();
-    }
+//    public int getChildren() {
+//        return children.size();
+//    }
 
     /**
      * Adds the tuple to trie of hashmaps. Recursively, Checks if a specific
@@ -59,7 +58,14 @@ public class Node {
     }
 
     /**
-     * Searching for the pattern in the trie.
+     * Searching for the pattern in the trie. Recursively, Checks if a specific
+     * Object in tuple is already in the trie, if it is, then don't add it,
+     * simply get that object and store it in the node and recursively look
+     * at the next pattern in the tuple. If we have a wildcard situation at a
+     * specific node, then we look at this nodes children, we ignore this
+     * node and recursively look for next node (his children).
+     * If we reach the end of the tuple (base case), then we check is it
+     * Pattern? if it is, then we return the pattern, otherwise null.
      * @param index to traverse the trie.
      * @param pattern we're looking at in the trie.
      * @return the tuple matching the pattern we searched for.
@@ -94,7 +100,15 @@ public class Node {
     }
 
     /**
-     *
+     * Searching for the pattern in the trie to Remove. Recursively, Checks
+     * if a specific Object in tuple is already in the trie, if it is, then
+     * don't add it, simply get that object and store it in the node and
+     * recursively look at the next pattern in the tuple.
+     * If we have a wildcard situation at a specific node, then we look at
+     * this nodes children, we ignore this node and recursively look for next
+     * node (his children). If we reach the end of the tuple (base case),
+     * then we check is it Pattern? if it is, then we return the pattern,
+     * otherwise null.
      * @param index to traverse the trie.
      * @param pattern we're looking at in the trie.
      * @return the tuple we want to remove.
@@ -133,18 +147,4 @@ public class Node {
         return null;
     }
 
-    public boolean isPattern() {
-        return isPattern;
-    }
-    public void setPattern(boolean pattern) {
-        this.isPattern = pattern;
-    }
-
-    public static void main(String[] args) {
-//        Node node = new Node();
-//        String str = "Name";
-//        node.insert(str);
-//        System.out.println();
-
-    }
 }
