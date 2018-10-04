@@ -9,10 +9,14 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @version date: 2018-09-29
@@ -87,6 +91,7 @@ public class GameCoordinator extends Application{
 
         typeMsg.setPrefWidth(156.0);
         typeMsg.setPrefHeight(88.0);
+        typeMsg.setPromptText("Type a message");
         HBox.setMargin(typeMsg, new Insets(10,0,0,0));
 
         send.setPrefWidth(92.0);
@@ -144,10 +149,40 @@ public class GameCoordinator extends Application{
             }
         });
 
+        users.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String whichUser = users.getSelectionModel().getSelectedItem();
+                userName.setText(whichUser);
+
+//                if(whichUser.equals(user.getName())) {
+//                    user.setActive(true);
+//                }
+            }
+        });
         send.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss");
+                Date now = new Date();
+                String time = date.format(now);
+                System.out.println(time);
 
+                // Re visit this thing. Do we have to use for loop
+                // and create list???
+                ArrayList<User> active = usersList.getActiveUsers();
+                for (int i = 0; i < active.size(); i++) {
+                    if (!typeMsg.getText().isEmpty()) {
+                        if (active.get(i).isActive()) {
+                            //String chatArea = message.getLastTenMsgs();
+                            message.addMsg(time, active.get(i), typeMsg.getText
+                                    ());
+                            userMsgs.setContent(new Text(active.get(i).getName()));
+                        }
+                    }
+                }
+                typeMsg.clear();
+                typeMsg.getPromptText();
             }
         });
 

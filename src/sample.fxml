@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
@@ -7,12 +11,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.ScrollPane?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: rgb(72, 103, 178);" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameCoordinator">
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: rgb(72, 103, 178);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameCoordinator">
    <children>
       <VBox layoutX="27.0" layoutY="22.0" prefHeight="457.0" prefWidth="247.0">
          <children>
+            <MenuBar prefHeight="22.0" prefWidth="247.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Add Users">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Add User" />
+                  </items>
+                </Menu>
+              </menus>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </MenuBar>
             <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="247.0" style="-fx-background-color: rgb(0, 191,255);" text="Button" />
             <HBox prefHeight="62.0" prefWidth="247.0">
                <children>

@@ -19,19 +19,16 @@ public class UserList {
         }
     }
 
-    public String getUserByName(String userName) {
-        String str = "";
-        for (int i = 0; i < users.size(); i++) {
-            if (users.equals(userName)) {
-                str += users.get(i).getName();
-            }
-        }
-        return str;
-    }
-
-//    public User get(int index) {
-//        return users.get(index);
+//    public String getUserByName(String userName) {
+//        String str = "";
+//        for (int i = 0; i < users.size(); i++) {
+//            if (users.equals(userName)) {
+//                str += users.get(i).getName();
+//            }
+//        }
+//        return str;
 //    }
+
     public ArrayList<User> getAllUsers() {
         return users;
     }
