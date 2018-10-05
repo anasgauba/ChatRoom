@@ -1,5 +1,6 @@
 package ChatRoom;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -48,12 +49,12 @@ public class GameCoordinator extends Application{
         hBox1.setPrefWidth(247.0);
         hBox1.setPrefHeight(51.0);
 
-        newUserTextField.setPrefWidth(206.0);
-        newUserTextField.setPrefHeight(39.0);
+        newUserTextField.setPrefWidth(226.0);
+        newUserTextField.setPrefHeight(37.0);
         newUserTextField.setPromptText("Add a User");
 
-        newUserBtn.setPrefWidth(121.0);
-        newUserBtn.setPrefHeight(39.0);
+        newUserBtn.setPrefWidth(141.0);
+        newUserBtn.setPrefHeight(37.0);
         newUserBtn.setText("Add");
 
         HBox.setMargin(newUserTextField, new Insets(0,5,5,0));
@@ -134,8 +135,8 @@ public class GameCoordinator extends Application{
         UserMessages userMessages = new UserMessages();
         User user = new User("Bob", false);
         User user2 = new User("John", false);
-        User user3 = new User("Smith", false);
-        User user4 = new User("Anas", false);
+        User user3 = new User("Smith", true);
+        User user4 = new User("Anas", true);
 
         UserList usersList = new UserList();
         usersList.addUser(user, user2, user3, user4);
@@ -151,17 +152,19 @@ public class GameCoordinator extends Application{
             @Override
             public void handle(MouseEvent event) {
                 if (!newUserTextField.getText().isEmpty()) {
-                    User newUser = new User(newUserTextField.getText(), true);
+                    User newUser = new User(newUserTextField.getText(), false);
                     usersList.addUser(newUser);
                 }
+                allUsers.fire();
                 newUserTextField.clear();
                 newUserTextField.getPromptText();
             }
         });
 
-        allUsers.setOnMousePressed(new EventHandler<MouseEvent>() {
+        allUsers.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(ActionEvent event) {
+                sendBtn.setDisable(false);
                 ArrayList<User> allUsers = usersList.getAllUsers();
                 viewUsers.getItems().clear();
 
@@ -170,9 +173,9 @@ public class GameCoordinator extends Application{
                 }
             }
         });
-        activeUsers.setOnMousePressed(new EventHandler<MouseEvent>() {
+        activeUsers.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(ActionEvent event) {
                 ArrayList<User> activeUsers = usersList.getActiveUsers();
                 viewUsers.getItems().clear();
                 //TODO: When a user clicks, that user should become offline.
@@ -188,6 +191,18 @@ public class GameCoordinator extends Application{
             public void handle(MouseEvent event) {
                 String whichUser = viewUsers.getSelectionModel().getSelectedItem();
                 userName.setText(whichUser);
+                ArrayList<User> active = usersList.getActiveUsers();
+                for (int i = 0; i < active.size(); i++) {
+                    if (viewUsers.getSelectionModel().getSelectedItem()
+                            .contentEquals(active.get(i).getName())) {
+                        active.get(i).setActive(false);
+                        userName.setText("");
+                        sendBtn.setDisable(true);
+                        activeUsers.fire();
+//                        viewUsers.getItems().clear();
+//                        viewUsers.getItems().add(active.get(i).getName());
+                    }
+                }
             }
         });
         sendBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -196,10 +211,10 @@ public class GameCoordinator extends Application{
                 SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss");
                 Date now = new Date();
                 String time = date.format(now);
-                //String chatArea = userMessages.getLastTenMsgs();
+                //String chatArea = userMessages.printLastTenMsgs();
 //                if (!typeMsg.getText().isEmpty()) {
 //                    userMessages.addMsg(time, user, typeMsg.getText());
-//                    viewMsgs.setContent(new Text(userMessages.getLastTenMsgs()));
+//                    viewMsgs.setContent(new Text(userMessages.printLastTenMsgs()));
 //                }
                 ArrayList<User> active = usersList.getAllUsers();
                 for (int i = 0; i < active.size(); i++) {
@@ -209,7 +224,7 @@ public class GameCoordinator extends Application{
                             active.get(i).setActive(true);
                             userMessages.addMsg(time, active.get(i), typeMsg
                                     .getText());
-                            viewMsgs.setContent(new Text(userMessages.getLastTenMsgs()));
+                            viewMsgs.setContent(new Text(userMessages.printLastTenMsgs()));
                         }
                     }
                 }
@@ -219,6 +234,7 @@ public class GameCoordinator extends Application{
         });
 
 
+        allUsers.fire();
         primaryStage.setTitle("ChatRoom");
         primaryStage.setScene(new Scene(root, 300, 500));
         primaryStage.show();
