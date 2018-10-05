@@ -7,22 +7,30 @@ import java.util.ArrayList;
  * @version date: 2018-09-30
  * @author Anas Farooq Gauba
  */
-public class Message {
+public class UserMessages {
     private TrieSpace space;
     private ArrayList<String> timeStamp;
-    public Message() {
+
+    /**
+     *
+     */
+    public UserMessages() {
         this.space = new TrieSpace();
         timeStamp = new ArrayList<>();
     }
-//    public int size() {
-//        return space.getMapSize();
-//    }
+
+    /**
+     *
+     * @param time
+     * @param user
+     * @param message
+     */
     public void addMsg(String time, User user, String message) {
         Tuple tuple = new Tuple(time, user.getName(), message);
         space.add(tuple);
         timeStamp.add(time);
     }
-    //TODO: this function.
+    //TODO: Based on time, show only 10 recent msgs not all from TupleSpace.
     public String getLastTenMsgs() {
         String temp = "";
         for (int i = 0; i < timeStamp.size(); i++) {
