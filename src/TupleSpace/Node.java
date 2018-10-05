@@ -100,15 +100,32 @@ public class Node {
     }
 
     /**
-     * Searching for the pattern in the trie to Remove. Recursively, Checks
-     * if a specific Object in tuple is already in the trie, if it is, then
-     * don't add it, simply get that object and store it in the node and
-     * recursively look at the next pattern in the tuple.
-     * If we have a wildcard situation at a specific node, then we look at
-     * this nodes children, we ignore this node and recursively look for next
-     * node (his children). If we reach the end of the tuple (base case),
-     * then we check is it Pattern? if it is, then we return the pattern,
-     * otherwise null.
+     * Searching for the pattern in the trie to Remove.
+     * For example, tuple <'c','a','t','s'> is searched to remove and the
+     * trie also has tuple <'c','a','t'> in the map.
+     *
+     * Recursively, Checks if a specific Object in tuple is already in the
+     * trie, if it is, then don't add it, simply get that object and store it
+     * in the node and recursively look at the next pattern in the tuple and
+     * store it in the newly created removePattern tuple.
+     *
+     * If we reach a point where we are at the last node of the pattern,
+     * (index 3 in <'c','a','t','s'> example) and now we have reached the
+     * based case, we set the isPattern to false,
+     * return the tuple to removePattern recursive call, and in there, we check
+     * if the removePattern is not null (which is not), we check that node
+     * 's' has no more children and the isPattern is set to false, we can
+     * safely remove this node.
+     *
+     * In the case where we want to remove <'c''a''t'>, the node at 't' has
+     * children 's', so !isEmpty, we just set the isPattern to false and
+     * don't delete it, that way when the user search for <'c','a','t>, they
+     * will not find it because isPattern is false.
+     *
+     * For the wildcard situation, its the same process but now, we ignore
+     * the wildcard at at a specific node, and create a list of all this
+     * node's children, and do the same remove process as explained before.
+     *
      * @param index to traverse the trie.
      * @param pattern we're looking at in the trie.
      * @return the tuple we want to remove.
