@@ -1,7 +1,6 @@
 package ChatRoom;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -32,7 +31,7 @@ public class GameCoordinator extends Application{
         TextField newUserTextField = new TextField();
         Button newUserBtn = new Button();
 
-        Button userNameBtn = new Button();
+        Button userName = new Button();
 
         HBox hBox2 = new HBox();
         Button activeUsers = new Button("Active");
@@ -62,9 +61,9 @@ public class GameCoordinator extends Application{
 
         // setting user button.
         // Hbox for active, all buttons.
-        userNameBtn.setStyle("-fx-background-color: rgb(0, 191,255)");
-        userNameBtn.setPrefWidth(247.0);
-        userNameBtn.setPrefHeight(39.0);
+        userName.setStyle("-fx-background-color: rgb(0, 191,255)");
+        userName.setPrefWidth(247.0);
+        userName.setPrefHeight(39.0);
 
         hBox2.setPrefWidth(247.0);
         hBox2.setPrefHeight(62.0);
@@ -120,7 +119,7 @@ public class GameCoordinator extends Application{
         vBox.setLayoutY(22.0);
         vBox.setPrefWidth(247.0);
         vBox.setPrefHeight(457.0);
-        vBox.getChildren().addAll(hBox1, userNameBtn, hBox2, viewUsers, viewMsgs,
+        vBox.getChildren().addAll(hBox1, userName, hBox2, viewUsers, viewMsgs,
                 hBox3);
 
         root.prefHeight(500.0);
@@ -129,9 +128,10 @@ public class GameCoordinator extends Application{
         root.getChildren().add(vBox);
 
 
-
-        //TODO: Add actionListeners.
-        Message message = new Message();
+        /*
+          Start of the logic.
+         */
+        UserMessages userMessages = new UserMessages();
         User user = new User("Bob", false);
         User user2 = new User("John", false);
         User user3 = new User("Smith", false);
@@ -143,15 +143,17 @@ public class GameCoordinator extends Application{
 //        ArrayList<User> list = usersList.getAllUsers();
 //        for(int i = 0; i < list.size(); i++){
 //            if(list.get(i).isActive()){
-//                message.addMsg();
+//                userMessages.addMsg();
 //            }
 //        }
 
         newUserBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                User newUser = new User(newUserTextField.getText(), true);
-                usersList.addUser(newUser);
+                if (!newUserTextField.getText().isEmpty()) {
+                    User newUser = new User(newUserTextField.getText(), true);
+                    usersList.addUser(newUser);
+                }
                 newUserTextField.clear();
                 newUserTextField.getPromptText();
             }
@@ -173,6 +175,7 @@ public class GameCoordinator extends Application{
             public void handle(MouseEvent event) {
                 ArrayList<User> activeUsers = usersList.getActiveUsers();
                 viewUsers.getItems().clear();
+                //TODO: When a user clicks, that user should become offline.
 
                 for(int i = 0; i < activeUsers.size(); i++) {
                     viewUsers.getItems().add(activeUsers.get(i).getName());
@@ -184,20 +187,7 @@ public class GameCoordinator extends Application{
             @Override
             public void handle(MouseEvent event) {
                 String whichUser = viewUsers.getSelectionModel().getSelectedItem();
-                userNameBtn.setText(whichUser);
-
-                if(whichUser.equals(user.getName())) {
-                    user.setActive(true);
-                }
-                else if (whichUser.equals(user2.getName())) {
-                    user2.setActive(true);
-                }
-                else if (whichUser.equals(user3.getName())) {
-                    user3.setActive(true);
-                }
-                else if (whichUser.equals(user4.getName())) {
-                    user4.setActive(true);
-                }
+                userName.setText(whichUser);
             }
         });
         sendBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -206,21 +196,23 @@ public class GameCoordinator extends Application{
                 SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss");
                 Date now = new Date();
                 String time = date.format(now);
-                //String chatArea = message.getLastTenMsgs();
-                if (!typeMsg.getText().isEmpty()) {
-                    message.addMsg(time, user, typeMsg.getText());
-                    viewMsgs.setContent(new Text(message.getLastTenMsgs()));
-                }
-
-                // Re visit this thing. Do we have to use for loop
-                // and create list???
-//                ArrayList<User> active = usersList.getActiveUsers();
-//                for (int i = 0; i < active.size(); i++) {
-//                    if (!typeMsg.getText().isEmpty()) {
-//                        if (active.get(i).isActive()) {
-//                        }
-//                    }
+                //String chatArea = userMessages.getLastTenMsgs();
+//                if (!typeMsg.getText().isEmpty()) {
+//                    userMessages.addMsg(time, user, typeMsg.getText());
+//                    viewMsgs.setContent(new Text(userMessages.getLastTenMsgs()));
 //                }
+                ArrayList<User> active = usersList.getAllUsers();
+                for (int i = 0; i < active.size(); i++) {
+                    if (!typeMsg.getText().isEmpty()) {
+                        if (viewUsers.getSelectionModel().getSelectedItem()
+                                .contentEquals(active.get(i).getName())) {
+                            active.get(i).setActive(true);
+                            userMessages.addMsg(time, active.get(i), typeMsg
+                                    .getText());
+                            viewMsgs.setContent(new Text(userMessages.getLastTenMsgs()));
+                        }
+                    }
+                }
                 typeMsg.clear();
                 typeMsg.getPromptText();
             }
