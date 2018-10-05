@@ -18,7 +18,7 @@ public class Message {
 //        return space.getMapSize();
 //    }
     public void addMsg(String time, User user, String message) {
-        Tuple tuple = new Tuple(time, user, message);
+        Tuple tuple = new Tuple(time, user.getName(), message);
         space.add(tuple);
         timeStamp.add(time);
     }
@@ -26,10 +26,10 @@ public class Message {
     public String getLastTenMsgs() {
         String temp = "";
         for (int i = 0; i < timeStamp.size(); i++) {
-            if (timeStamp.size() != 10) {
+//            if (timeStamp.size() != 10) {
                 temp += space.search(timeStamp.get(i), null, null).toString();
                 temp += "\n";
-            }
+//            }
         }
         System.out.println("String " + temp);
         return temp;
