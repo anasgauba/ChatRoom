@@ -16,15 +16,11 @@ public class Node {
     private Tuple tuple;
 
     /**
-     *
+     * Contruct a Node object with the given hashmap.
      */
     public Node() {
         this.children = new HashMap<>();
     }
-
-//    public int getChildren() {
-//        return children.size();
-//    }
 
     /**
      * Adds the tuple to trie of hashmaps. Recursively, Checks if a specific

@@ -27,13 +27,13 @@ public class Tuple {
      * are, then it ignores them and simply search the next pattern
      * in the tuple and returns true if the pattern matches with the
      * given tuple.
-     * @param t1 tuple to compare with.
+     * @param otherTuple tuple to compare with.
      * @return true/false based on the pattern match.
      */
-    public boolean isEqual(Tuple t1) {
-        Object[] temp = t1.getPattern();
+    public boolean isEqual(Tuple otherTuple) {
+        Object[] temp = otherTuple.getPattern();
 
-        if (t1.getSize() != this.getSize()) {
+        if (otherTuple.getSize() != this.getSize()) {
             return false;
         }
         else {
@@ -73,7 +73,6 @@ public class Tuple {
     }
 
     /**
-     *
      * @return string representation of the tuple.
      */
     public String toString() {
@@ -81,7 +80,6 @@ public class Tuple {
         for (int i = 0; i < pattern.length; i++) {
             str += pattern[i] + " ";
         }
-        str += "";
         return str;
     }
 }

@@ -18,10 +18,6 @@ public class TrieSpace implements TupleSpace{
         this.root = new Node();
     }
 
-//    public int getMapSize() {
-//        return root.getChildren();
-//    }
-
     /**
      * Calls helper function in Node class
      * to add the node to the tree. Always starting
