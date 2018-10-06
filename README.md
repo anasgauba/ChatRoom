@@ -44,23 +44,46 @@ ChatRoom Application:
      user clicks from "All" button ListView, he can click anywhere except 
      "Active" button (if he clicks "Active" button, then he has to reclick 
      himself from "All" button).
-   
-   - HOW TO USE CHATROOM APP? (Details regarding ChatRomm App Usage):
-     - When the program runs, it shows "All" users listView automatically.
-     - If you wish not to add new User, make sure to select an existing user 
-     from "All" listView and type a message and send it. After sending a 
-     message, you can see in "Active" listView that the user is 
-     ACTIVE/LOGGEDIN, also can see on the blue button with the selected user's 
-     Name shown.
-     - To logOff, click the user's name in listView to log him off (once he's 
-     actually logged in).
-       - If you go to "Active" listView and click a user to logOff, the "Active"
-       listView updates and now, you will not find the user you just clicked 
-       in "Active" listView (he's logged off). The blue button will also not 
-       have this user's name shown.
-       - If you don't go to "Active" listView to     
+     
+ - HOW TO USE CHATROOM APP? (Details regarding ChatRomm App Usage):
+   - When the program runs, it shows "All" users listView automatically.
+   - If you wish not to add new User, make sure to select an existing user 
+      from "All" listView and type a message and send it. After sending a 
+      message, you can see in "Active" listView that the user is 
+      ACTIVE/LOGGEDIN (any user becomes active when it gets selected and it 
+      types a message), also can see on the blue button with the 
+      selected user's name shown.
+   - To logOff, click the user's name in listView to log him off (once he's 
+      actually logged in).
+      - If you go to "Active" listView and click a user to logOff, the "Active"
+        listView updates and now, you will not find the user you just clicked 
+        in "Active" listView (he's logged off). The blue button will also not 
+        have this user's name shown.
+      - If you don't go to "Active" listView to logOff and want to logOff from 
+        "All" listView (knowing you already typed a message and now know who you're),
+        you can also select this loggedIn user from "All" listView as well to 
+        make him logOff. Notice that if you select a loggedIn user from "All" 
+        listView, it directs you to updated "Active" listView with that 
+        selected user being inactive.
+        - For example, you select user "Bob" and type a message to chat, 
+          "Bob" is active (can actually go and see in "Active" listView, 
+          "Bob" will be there). Now, you want him to logOff, there are two 
+          ways you can log him off. ONE way is to select him from "Active" 
+          listView and he will become offline (can also see the blue button 
+          has no name now). SECOND way is to go to "All" listView and select 
+          "Bob" there, notice that as soon as you click "Bob", it directs you 
+          to "Active" listView with "Bob" not being there anymore (he's logged
+           off!).
+        - NOTE: Once you make the user logOff, sendButton disables. It will 
+        only enable once you re-select a user from "All" listView. 
+   - If you wish to add a new user, simply type user's name, and press 
+      "Add" button, then if you want this newUser to type a message, select 
+      him from "All" listView and send the message. 
+   - NOTE: The program will not add a blank message into the chat, meaning 
+      if the textField is empty, the user can't send a message. 
+             
+           
    
          
- -Things need to do: 
+ - Things need to do: 
    - Show only 10 recent messages not all the messages.
-   - Figure out to logOff the user if he/she clicks themselves in "Active" list.
