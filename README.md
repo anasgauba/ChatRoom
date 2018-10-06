@@ -93,7 +93,10 @@ ChatRoom Application:
       "Add" button, then if you want this newUser to type a message, select 
       him from "All" listView and send the message. 
    - NOTE: The program will not add a blank message into the chat, meaning 
-      if the textField is empty, the user can't send a message. 
+      if the textField is empty, the user can't send a message.  
+   - NOTE: In this chatRoom program, a user can type in as many messages he 
+   wants until he/she wants to logOff (I implemented like that because in 
+   real chatRoom, a user a luxury to type in as many messages he/she wants).
              
            
    
