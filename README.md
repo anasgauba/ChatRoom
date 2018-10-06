@@ -17,11 +17,24 @@ ChatRoom Application:
           - I have named my Trie implementation as "TrieSpace" so its easier to
          recognize which implementation of TupleSpace it is. 
           - Using Trie data structure with HashMap. 
-          - It doesn't add duplicates, make sure  
+          - TrieSpace has access to Node object and it creates a member 
+          variable root, which then calls methods in Node class.  
+          - All the hard work is done is Node class. 
+          - Recursively searching for tuples to add, search or remove from 
+          the hashmap, adding no duplicates to the map.
+          - Hashmap of trie is useful and quick also. Let's say I want to add 
+          millions of tuples, it will considerably add them quickly than my 
+          naive implementation [comparison done in TupleSpace design doc]. 
          
    - Stress Testing:
-     - write here
-     - write here
+     - Stress Testing class adds 100000 tuples to the trie. Searches/remove 
+     about 60000 tuples together.  
+     - The tupleSpace can take any size tuples but in my stress test, I have 
+     gone upto size 8 (can easily add any bigger size as well).
+     - The elegant implementation is considerably way faster than the naive 
+     implementation. (with this amount, it takes about a min for elegant 
+     implementaion as compared to linkedList which takes hours). [Detailed 
+     discussion in TupleSpace design doc].
      
  - ChatRoom App:
    - Has multiple users from the beginning.
