@@ -84,6 +84,6 @@ public class StressTest {
             }
         }
         long time2 = System.currentTimeMillis();
-        System.out.println(time2 - time + " millis");
+        System.out.println(time2 - time + " millis, it takes");
     }
 }
