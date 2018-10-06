@@ -70,7 +70,7 @@ public class Node {
         Tuple match = new Tuple(pattern);
         if (index == match.getSize()) {
             if (isPattern) {
-                System.out.println("Lookup: " + tuple);
+//                System.out.println("Lookup: " + tuple);
                 return this.tuple;
             }
             else {
@@ -131,7 +131,7 @@ public class Node {
         if (index == match.getSize()) {
             if (isPattern) {
                 isPattern = false;
-                System.out.println("Remove " + tuple);
+//                System.out.println("Remove " + tuple);
                 return this.tuple;
             }
         }

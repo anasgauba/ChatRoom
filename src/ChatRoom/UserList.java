@@ -29,16 +29,6 @@ public class UserList {
         }
     }
 
-//    public String getUserByName(String userName) {
-//        String str = "";
-//        for (int i = 0; i < users.size(); i++) {
-//            if (users.equals(userName)) {
-//                str += users.get(i).getName();
-//            }
-//        }
-//        return str;
-//    }
-
     /**
      * @return list of all the users.
      */
