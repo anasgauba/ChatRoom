@@ -17,35 +17,52 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * Game Coordinator/ Display class for ChatRoom App. Runs the javafx
+ * application. Sets up the initial gui, then adds actionListeners and logic
+ * in them. Game Coordinator has access to User, UserList, and UserMessages.
+ * The new User can be added to the chatRoom, the user can logIn/logOff based
+ * on the click in listView (any user becomes active when it gets selected
+ * and it types a message). Initially, all the users are inactive, they can
+ * get active when the person clicks a user from "All" button's listView and
+ * types a message.
  * @version date: 2018-09-29
  * @author Anas Farooq Gauba
  */
-public class GameCoordinator extends Application{
+public class GameCoordinator extends Application {
+    /**
+     * Launches the app.
+     * @param args command line ignored.
+     */
+    public static void main(String[]args) {
+        launch(args);
+    }
 
+    /**
+     * Initial display setup and actionListeners.
+     * @param primaryStage the stage
+     * @throws IOException any exception.
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
+        //Initial GUI Setup.
+
         Pane root = new Pane();
         VBox vBox = new VBox();
-
         HBox hBox1 = new HBox();
         TextField newUserTextField = new TextField();
         Button newUserBtn = new Button();
-
         Button userName = new Button();
-
         HBox hBox2 = new HBox();
         Button activeUsers = new Button("Active");
         Button allUsers = new Button("All");
-
         ListView<String> viewUsers = new ListView<>();
         ScrollPane viewMsgs = new ScrollPane();
-
         HBox hBox3 = new HBox();
         TextField typeMsg = new TextField();
         Button sendBtn = new Button();
 
-
+        //Display logic begins.
         hBox1.setPrefWidth(247.0);
         hBox1.setPrefHeight(51.0);
 
@@ -88,7 +105,6 @@ public class GameCoordinator extends Application{
         //ListView to show active and all view.
         viewUsers.setPrefWidth(247.0);
         viewUsers.setPrefHeight(70.0);
-//        view.setStyle("-fx-background-color: rgb(214, 192, 128)");
         VBox.setMargin(viewUsers, new Insets(0, 0,0,0));
 
         //ScrollPane to show user messages.
@@ -99,23 +115,22 @@ public class GameCoordinator extends Application{
         //Hbox to add textField and a sendBtn.
         hBox3.setPrefWidth(247);
         hBox3.setPrefHeight(101.0);
-
         typeMsg.setPrefWidth(156.0);
         typeMsg.setPrefHeight(88.0);
         typeMsg.setPromptText("Type a message");
         HBox.setMargin(typeMsg, new Insets(10,0,0,0));
-
         sendBtn.setPrefWidth(92.0);
         sendBtn.setPrefHeight(88.0);
         sendBtn.setText("SEND");
         sendBtn.setStyle("-fx-background-color: yellow; -fx-font-weight: bold");
         HBox.setMargin(sendBtn, new Insets(10, 0,0 ,5));
 
-
+        //Adding everything in the correct order.
         hBox1.getChildren().addAll(newUserTextField, newUserBtn);
         hBox2.getChildren().addAll(activeUsers, allUsers);
         hBox3.getChildren().addAll(typeMsg, sendBtn);
 
+        // Layout of vBox and root pane.
         vBox.setLayoutX(27.0);
         vBox.setLayoutY(22.0);
         vBox.setPrefWidth(247.0);
@@ -130,24 +145,22 @@ public class GameCoordinator extends Application{
 
 
         /*
-          Start of the logic.
+          Start of the logic. Instantiate userMsgs, initially create some
+          users, put them in the userList.
          */
         UserMessages userMessages = new UserMessages();
         User user = new User("Bob", false);
         User user2 = new User("John", false);
-        User user3 = new User("Smith", true);
-        User user4 = new User("Anas", true);
+        User user3 = new User("Smith", false);
+        User user4 = new User("Anas", false);
 
         UserList usersList = new UserList();
         usersList.addUser(user, user2, user3, user4);
 
-//        ArrayList<User> list = usersList.getAllUsers();
-//        for(int i = 0; i < list.size(); i++){
-//            if(list.get(i).isActive()){
-//                userMessages.addMsg();
-//            }
-//        }
-
+        // ActionListener for newUserBtn. Adds a new user to the userList.
+        // When newUser is added, automatically fires (clicks/goes to) to
+        // "All" button listView. Clears the textField and gets a placeholder
+        // (promptText).
         newUserBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -160,32 +173,59 @@ public class GameCoordinator extends Application{
                 newUserTextField.getPromptText();
             }
         });
-
+        // "All" users button action event. Shows the list of all users.
+        // Sets the send button back to active if it was disabled from
+        // "Active" listView call. Every time, this action triggers, I make
+        // sure to clear the listView and repaint it (getItems.add).
+        // Doing javafx button stylesfor better user experience to detect
+        // which one got clicked. Clicked one turns yellow.
         allUsers.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 sendBtn.setDisable(false);
-                ArrayList<User> allUsers = usersList.getAllUsers();
+                ArrayList<User> allUser = usersList.getAllUsers();
                 viewUsers.getItems().clear();
 
-                for (int i = 0; i < allUsers.size(); i++) {
-                    viewUsers.getItems().add(allUsers.get(i).getName());
+                for (int i = 0; i < allUser.size(); i++) {
+                    viewUsers.getItems().add(allUser.get(i).getName());
                 }
+                allUsers.setStyle("-fx-background-color: yellow; " +
+                        "-fx-font-weight: " + "bold; -fx-font: 16 " +
+                        "arial");
+                activeUsers.setStyle("-fx-background-color: beige; " +
+                        "-fx-font-weight: " + "bold; -fx-font: 16 " +
+                        "arial");
             }
         });
+        // "Active" users button action event. Shows the list of active users.
+        // Every time, this action triggers, I make sure to clear the
+        // listView and repaint it (getItems.add). Doing javafx button styles
+        // for better user experience to detect which one got clicked.
+        // Clicked one turns yellow.
         activeUsers.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ArrayList<User> activeUsers = usersList.getActiveUsers();
+                ArrayList<User> activeUser = usersList.getActiveUsers();
                 viewUsers.getItems().clear();
-                //TODO: When a user clicks, that user should become offline.
 
-                for(int i = 0; i < activeUsers.size(); i++) {
-                    viewUsers.getItems().add(activeUsers.get(i).getName());
+                for(int i = 0; i < activeUser.size(); i++) {
+                    viewUsers.getItems().add(activeUser.get(i).getName());
                 }
+                allUsers.setStyle("-fx-background-color: beige; " +
+                        "-fx-font-weight: " + "bold; -fx-font: 16 " +
+                        "arial");
+                activeUsers.setStyle("-fx-background-color: yellow; " +
+                        "-fx-font-weight: " + "bold; -fx-font: 16 " +
+                        "arial");
             }
         });
-
+        // ListView actionListener. Shows the selected user onto blue button
+        // only if the user is active, otherwise empty text "". Doing logic
+        // for logging off user in here. Get all the activeUsers list, and
+        // loop thru them and check which one got clicked, set their boolean
+        // to false, disable the send button. Repaint the "Active" listView
+        // (by calling fire() method). Javafx button styling to show the user
+        // that they are in "Active" listView currently.
         viewUsers.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -199,30 +239,37 @@ public class GameCoordinator extends Application{
                         userName.setText("");
                         sendBtn.setDisable(true);
                         activeUsers.fire();
-//                        viewUsers.getItems().clear();
-//                        viewUsers.getItems().add(active.get(i).getName());
+                        activeUsers.setStyle("-fx-background-color: yellow; " +
+                                "-fx-font-weight: " + "bold; -fx-font: 16 " +
+                                "arial");
                     }
                 }
             }
         });
+        // Send button actionListener. Gets the current time at which user
+        // tried to send the message, store it in string, based on which user
+        // gets selected from "All" listView, and gets the message from
+        // textField that the user typed, add that msg to the tupleSpace by
+        // calling a method in userMessages class. Note: I am taking into
+        // account that the user should'nt be able to send a blank message
+        // (!empty textField). Showing that message on viewMsgs(scrollPane) by
+        // calling printLastTenMsgs() method from userMessages class. Making
+        // sure to clear the textField once the user sends a message and put
+        // the placeholder (promptText).
         sendBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 SimpleDateFormat date = new SimpleDateFormat("HH:mm:ss");
                 Date now = new Date();
                 String time = date.format(now);
-                //String chatArea = userMessages.printLastTenMsgs();
-//                if (!typeMsg.getText().isEmpty()) {
-//                    userMessages.addMsg(time, user, typeMsg.getText());
-//                    viewMsgs.setContent(new Text(userMessages.printLastTenMsgs()));
-//                }
-                ArrayList<User> active = usersList.getAllUsers();
-                for (int i = 0; i < active.size(); i++) {
+                ArrayList<User> selectUser = usersList.getAllUsers();
+
+                for (int i = 0; i < selectUser.size(); i++) {
                     if (!typeMsg.getText().isEmpty()) {
                         if (viewUsers.getSelectionModel().getSelectedItem()
-                                .contentEquals(active.get(i).getName())) {
-                            active.get(i).setActive(true);
-                            userMessages.addMsg(time, active.get(i), typeMsg
+                                .contentEquals(selectUser.get(i).getName())) {
+                            selectUser.get(i).setActive(true);
+                            userMessages.addMsg(time, selectUser.get(i), typeMsg
                                     .getText());
                             viewMsgs.setContent(new Text(userMessages.printLastTenMsgs()));
                         }
@@ -233,7 +280,8 @@ public class GameCoordinator extends Application{
             }
         });
 
-
+        // initially, when the program runs, I want the user to see "All"
+        // users listView by calling fire() method.
         allUsers.fire();
         primaryStage.setTitle("ChatRoom");
         primaryStage.setScene(new Scene(root, 300, 500));
