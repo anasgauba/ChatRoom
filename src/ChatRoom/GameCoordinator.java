@@ -104,12 +104,12 @@ public class GameCoordinator extends Application {
 
         //ListView to show active and all view.
         viewUsers.setPrefWidth(247.0);
-        viewUsers.setPrefHeight(70.0);
+        viewUsers.setPrefHeight(100.0);
         VBox.setMargin(viewUsers, new Insets(0, 0,0,0));
 
         //ScrollPane to show user messages.
         viewMsgs.setPrefWidth(247.0);
-        viewMsgs.setPrefHeight(174.0);
+        viewMsgs.setPrefHeight(170.0);
         VBox.setMargin(viewMsgs, new Insets(10, 0,0,0));
 
         //Hbox to add textField and a sendBtn.
